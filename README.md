@@ -34,10 +34,10 @@ See [SKILL_INDEX.md](./SKILL_INDEX.md) for the full list with descriptions. At a
 | [`dc-tracker`](./skills/dc-tracker/) | Rolling, quarter-indexed project ledger + branded PPTX recap deck generator for the Demo Consulting team. |
 | [`monday-board-auditor`](./skills/monday-board-auditor/) | Audits the four Demo Engineering Monday.com boards for data-quality issues before reporting. |
 | [`monday-impact-reporter`](./skills/monday-impact-reporter/) | Turns delivered Monday.com work into a QBR-ready leadership impact narrative. |
-| [`workiva-demo-build-office-hours`](./skills/workiva-demo-build-office-hours/) | YC-style forcing-question session that produces a Demo Build Design Doc for in-platform Workiva demos. |
-| [`plan-ceo-review`](./skills/plan-ceo-review/) | CEO/founder-mode plan review — challenge premises, find the 10-star product, expand or strip scope. |
-| [`plan-eng-review`](./skills/plan-eng-review/) | Eng-manager-mode plan review — architecture, data flow, edge cases, tests, performance. |
-| [`plan-design-review`](./skills/plan-design-review/) | Designer's-eye plan review — rates design dimensions 0–10 and fixes the plan to reach 10. |
+| [`workiva-demo-build-office-hours`](./skills/workiva-demo-build-office-hours/) | YC-style forcing-question session that produces a Demo Build Design Doc for in-platform Workiva demos. Bundles the three nested `plan-*` review skills below. |
+| [`plan-ceo-review`](./skills/workiva-demo-build-office-hours/plan-ceo-review/) | CEO/founder-mode plan review — challenge premises, find the 10-star product, expand or strip scope. (Nested under `workiva-demo-build-office-hours`.) |
+| [`plan-eng-review`](./skills/workiva-demo-build-office-hours/plan-eng-review/) | Eng-manager-mode plan review — architecture, data flow, edge cases, tests, performance. (Nested under `workiva-demo-build-office-hours`.) |
+| [`plan-design-review`](./skills/workiva-demo-build-office-hours/plan-design-review/) | Designer's-eye plan review — rates design dimensions 0–10 and fixes the plan to reach 10. (Nested under `workiva-demo-build-office-hours`.) |
 
 > **Note on the `plan-*` and `office-hours` skills:** these originate from the "gstack" skill ecosystem and use extended frontmatter fields (e.g. `preamble-tier`, `interactive`, `benefits-from`, `version`). They work in that runtime but do **not** pass the stock `agentskills validate` schema. See [Validation](#validation) below. Their content has been preserved exactly as delivered.
 
@@ -59,14 +59,14 @@ workiva-demo-consulting-skill-library/
     │   └── SKILL.md
     ├── monday-impact-reporter/
     │   └── SKILL.md
-    ├── workiva-demo-build-office-hours/
-    │   └── SKILL.md
-    ├── plan-ceo-review/
-    │   └── SKILL.md
-    ├── plan-eng-review/
-    │   └── SKILL.md
-    └── plan-design-review/
-        └── SKILL.md
+    └── workiva-demo-build-office-hours/
+        ├── SKILL.md
+        ├── plan-ceo-review/
+        │   └── SKILL.md
+        ├── plan-eng-review/
+        │   └── SKILL.md
+        └── plan-design-review/
+            └── SKILL.md
 ```
 
 ---
