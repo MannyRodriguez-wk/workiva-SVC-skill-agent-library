@@ -1,0 +1,47 @@
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.idea/
+.vscode/
+*.code-workspace
+
+# Logs / temp
+*.log
+*.tmp
+tmp/
+.cache/
+
+# Python (helper scripts / tooling)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# Node (helper scripts / tooling)
+node_modules/
+
+# Environment / secrets — never commit credentials
+.env
+.env.*
+*.pem
+*.key
+secrets.*
+credentials.*
+
+# Generated artifacts (decks, exports) — regenerate from skills, don't commit
+*.pptx
+*.xlsx
+*.pdf
+out/
+build/
+dist/
+
+# Repackaged skill bundles (skills live unpacked under skills/)
+*.skill
+*.zip
