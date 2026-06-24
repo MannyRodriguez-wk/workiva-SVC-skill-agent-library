@@ -28,15 +28,13 @@ the original *Workiva Demo Consulting Skill Library*.
 
 ## How it's organized
 
-One org, one flat library. Three top-level buckets plus the docs:
+One org, one flat library. Two top-level buckets plus the docs:
 
 - **`skills/`** — reusable capabilities and playbooks. Each skill is a folder with
   a `SKILL.md` the agent follows. Multi-step workflows (like the demo-build
   office hours + plan reviews) live here too, nested where it makes sense.
-- **`agents/`** — agent identities (`*.yaml`) that *compose* skills and prompts
-  into a named role, and declare their data boundaries and required env vars.
-- **`prompts/`** — shared prompt primitives every agent inherits (governance
-  guardrails, executive persona).
+- **`agents/`** — agent identities (`*.yaml`) that *compose* skills into a named
+  role, and declare their data boundaries and required env vars.
 - **`ASSET_INDEX.md`** — the unified catalog of everything in the library.
 
 ```
@@ -50,9 +48,6 @@ workiva-scvm-skill-library/
 │   ├── office_hours_agent.yaml
 │   ├── rf_responder_agent.yaml
 │   └── roi_generator_agent.yaml
-├── prompts/
-│   ├── global_guardrails.md
-│   └── executive_persona.txt
 └── skills/
     ├── dc-tracker/SKILL.md
     ├── monday-board-auditor/SKILL.md
@@ -65,7 +60,7 @@ workiva-scvm-skill-library/
 ```
 
 The mental model is simple: **skills are what the library can do; agents are the
-roles that put skills to work; prompts are the shared rules they all follow.**
+roles that put skills to work.**
 
 > The three `plan-*` reviews are bundled **inside**
 > `skills/workiva-demo-build-office-hours/` because they're used together as one
@@ -83,7 +78,6 @@ At a glance:
   `workiva-demo-build-office-hours` (+ `plan-ceo-review`, `plan-eng-review`,
   `plan-design-review`).
 - **Agents:** `office-hours-agent`, `rf-responder-agent`, `roi-generator-agent`.
-- **Prompts:** `global_guardrails.md`, `executive_persona.txt`.
 
 ---
 
@@ -140,9 +134,9 @@ Once installed, invoke a skill by describing the task in natural language (the
 `description` tells the agent when to fire) or by its slash name where supported
 (e.g. `/plan-ceo-review`).
 
-Agents in `agents/` are config that names which skills + prompts a role composes;
-load them into a runtime that supports agent configs, or use them as a reference
-for assembling the same role by hand.
+Agents in `agents/` are config that names which skills a role composes; load them
+into a runtime that supports agent configs, or use them as a reference for
+assembling the same role by hand.
 
 ---
 
@@ -181,9 +175,8 @@ extended fields under `metadata:`) is future cleanup, not blocking.
 ## Contributing
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md). Short version: branch, add your asset
-under `skills/`, `agents/`, or `prompts/`, validate skills with
-`agentskills validate`, update `ASSET_INDEX.md`, open a small PR, get one review.
-No secrets, ever.
+under `skills/` or `agents/`, validate skills with `agentskills validate`, update
+`ASSET_INDEX.md`, open a small PR, get one review. No secrets, ever.
 
 ---
 

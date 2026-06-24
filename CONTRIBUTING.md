@@ -9,7 +9,6 @@ safe for shared data."
 | You are adding… | Path |
 |-----------------|------|
 | A reusable skill or workflow | `skills/<name>/SKILL.md` |
-| A shared prompt / persona / guardrail | `prompts/<name>.{md,txt}` |
 | An agent identity that composes skills | `agents/<name>_agent.yaml` |
 
 - **One skill, one folder.** The folder name must match the `name:` in the
@@ -34,10 +33,10 @@ safe for shared data."
 
 ## Adding an agent
 
-Agent YAMLs name the skills and prompts a role composes, plus what data it may
-touch. Keep them honest: reference real `skills/...` and `prompts/...` paths,
-declare `data_boundaries`, and list any secrets by **name only** in
-`required_environment_variables` — never a value.
+Agent YAMLs name the skills a role composes, plus what data it may touch. Keep
+them honest: reference real `skills/...` paths, declare `data_boundaries`, and
+list any secrets by **name only** in `required_environment_variables` — never a
+value.
 
 ## Don't commit secrets
 
@@ -46,9 +45,6 @@ declare `data_boundaries`, and list any secrets by **name only** in
 - No customer PII or confidential data in any asset or sample file.
 - Never fabricate data, metrics, or Workiva policy. Unknowns are `UNKNOWN`.
 - Confirm before writing to a system of record; never silently overwrite.
-
-These mirror [`prompts/global_guardrails.md`](./prompts/global_guardrails.md),
-which every agent inherits.
 
 ## Pull requests
 

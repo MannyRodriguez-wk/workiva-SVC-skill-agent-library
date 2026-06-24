@@ -9,10 +9,6 @@ purpose: >
   every figure sourced and every assumption labeled.
 status: planned
 
-prompts:
-  - prompts/global_guardrails.md
-  - prompts/executive_persona.txt
-
 skills:
   - skills/monday-impact-reporter
 

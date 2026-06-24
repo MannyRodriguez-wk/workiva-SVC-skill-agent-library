@@ -8,10 +8,6 @@ purpose: >
   gaps, and producing an executive-ready response draft for human review.
 status: planned
 
-prompts:
-  - prompts/global_guardrails.md
-  - prompts/executive_persona.txt
-
 skills: []
 
 data_boundaries:

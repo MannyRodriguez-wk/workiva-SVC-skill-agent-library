@@ -4,8 +4,7 @@ The unified catalog of every asset in this library. One org, one library.
 
 **Asset types**
 - **skill** — a reusable capability or workflow (`skills/<name>/SKILL.md`).
-- **agent** — an identity that composes skills + prompts (`agents/<name>_agent.yaml`).
-- **prompt** — a shared system prompt / persona / guardrail (`prompts/`).
+- **agent** — an identity that composes skills (`agents/<name>_agent.yaml`).
 
 **Validation legend:** ✅ passes stock `agentskills validate` · ⚠️ functional but
 uses extended (`gstack`) frontmatter the stock validator rejects — content
@@ -31,22 +30,12 @@ preserved as delivered; see [README → Validation](./README.md#validation).
 
 | Asset | Function | Target audience | Composes | Status |
 |-------|----------|-----------------|----------|--------|
-| [`office_hours_agent.yaml`](./agents/office_hours_agent.yaml) | Runs demo-build "office hours" + plan reviews to produce a vetted Demo Build Design Doc. | Demo Engineering / Presales SC | skills: `workiva-demo-build-office-hours` (+ 3 plan reviews), `dc-tracker`; prompts: guardrails, exec persona | poc |
-| [`rf_responder_agent.yaml`](./agents/rf_responder_agent.yaml) | Drafts first-pass RFP/RFI/security-questionnaire responses for human review. | Solutions Consulting | prompts: guardrails, exec persona; env: `RFX_KB_API_TOKEN` | planned |
-| [`roi_generator_agent.yaml`](./agents/roi_generator_agent.yaml) | Builds defensible ROI / value models with every figure sourced and assumptions labeled. | Value Management; customer economic buyers | skills: `monday-impact-reporter`; prompts: guardrails, exec persona; env: `VALUE_MODEL_CONFIG_PATH` | planned |
+| [`office_hours_agent.yaml`](./agents/office_hours_agent.yaml) | Runs demo-build "office hours" + plan reviews to produce a vetted Demo Build Design Doc. | Demo Engineering / Presales SC | skills: `workiva-demo-build-office-hours` (+ 3 plan reviews), `dc-tracker` | poc |
+| [`rf_responder_agent.yaml`](./agents/rf_responder_agent.yaml) | Drafts first-pass RFP/RFI/security-questionnaire responses for human review. | Solutions Consulting | env: `RFX_KB_API_TOKEN` | planned |
+| [`roi_generator_agent.yaml`](./agents/roi_generator_agent.yaml) | Builds defensible ROI / value models with every figure sourced and assumptions labeled. | Value Management; customer economic buyers | skills: `monday-impact-reporter`; env: `VALUE_MODEL_CONFIG_PATH` | planned |
 
 ---
 
-## Prompts
-
-| Asset | Function | Target audience |
-|-------|----------|-----------------|
-| [`global_guardrails.md`](./prompts/global_guardrails.md) | Org-wide AI guardrails (secrets, data boundaries, sourcing, no fabricated Workiva policy, human-review gates). Inherited by every agent. | All SCVM agents & contributors |
-| [`executive_persona.txt`](./prompts/executive_persona.txt) | Concise executive-ready persona for demos and stakeholder summaries. | Execs, economic buyers, leadership |
-
----
-
-Every agent inherits [`prompts/global_guardrails.md`](./prompts/global_guardrails.md):
-no credentials in prompts, respect declared data boundaries, cite sources, never
-fabricate Workiva policy, and require human review for customer-facing or
-legal/financial output.
+Agents must not embed credentials, must respect their declared data boundaries,
+cite sources, never fabricate Workiva policy, and require human review for
+customer-facing or legal/financial output. See [CONTRIBUTING.md](./CONTRIBUTING.md).

@@ -9,10 +9,6 @@ purpose: >
   Design Doc.
 status: poc
 
-prompts:
-  - prompts/global_guardrails.md
-  - prompts/executive_persona.txt
-
 skills:
   - skills/dc-tracker
   - skills/workiva-demo-build-office-hours
