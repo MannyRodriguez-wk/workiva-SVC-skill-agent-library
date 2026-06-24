@@ -1,8 +1,8 @@
 # Global AI Guardrails — Workiva SCVM
 
-These guardrails apply to **every** asset in this library — core skills, org
-playbooks, and all agent identities under `org/`. Any prompt, skill, or agent
-config in this repo inherits these rules. When a domain-specific prompt conflicts
+These guardrails apply to **every** asset in this library — all skills under
+`skills/` and all agent identities under `agents/`. Any prompt, skill, or agent
+config in this repo inherits these rules. When a more specific prompt conflicts
 with these guardrails, **these guardrails win.**
 
 > Scope: Workiva SCVM (Solutions Consulting, Value Management, Demo

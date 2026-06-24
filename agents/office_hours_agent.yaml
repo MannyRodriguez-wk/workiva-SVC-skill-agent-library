@@ -1,8 +1,7 @@
 # Agent identity — placeholder POC config. No secrets.
-# Conforms to testing/schemas/agent-config.schema.json
 id: office-hours-agent
 name: Demo Build Office Hours Agent
-owner_domain: demo-engineering
+owner: scvm
 purpose: >
   Runs YC-style "office hours" forcing-question sessions to design polished,
   in-platform Workiva demo packages, then drives the demo build plan through
@@ -11,17 +10,15 @@ purpose: >
 status: poc
 
 prompts:
-  - core/prompts/global_guardrails.md
-  - core/prompts/executive_persona.txt
+  - prompts/global_guardrails.md
+  - prompts/executive_persona.txt
 
-dependencies:
-  skills:
-    - core/skills/dc-tracker
-  playbooks:
-    - org/demo-engineering/playbooks/workiva-demo-build-office-hours
-    - org/demo-engineering/playbooks/workiva-demo-build-office-hours/plan-ceo-review
-    - org/demo-engineering/playbooks/workiva-demo-build-office-hours/plan-eng-review
-    - org/demo-engineering/playbooks/workiva-demo-build-office-hours/plan-design-review
+skills:
+  - skills/dc-tracker
+  - skills/workiva-demo-build-office-hours
+  - skills/workiva-demo-build-office-hours/plan-ceo-review
+  - skills/workiva-demo-build-office-hours/plan-eng-review
+  - skills/workiva-demo-build-office-hours/plan-design-review
 
 data_boundaries:
   reads:

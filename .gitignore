@@ -73,7 +73,7 @@ out/
 build/
 dist/
 
-# ─── Packaged asset bundles (assets live unpacked under core/ and org/) ─
+# ─── Packaged asset bundles (skills live unpacked under skills/) ────────
 *.skill
 *.zip
 *.tar.gz

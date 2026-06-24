@@ -1,8 +1,7 @@
 # Agent identity — placeholder POC config. No secrets.
-# Conforms to testing/schemas/agent-config.schema.json
 id: rf-responder-agent
 name: RFx Responder Agent
-owner_domain: solutions-consulting
+owner: scvm
 purpose: >
   Drafts first-pass responses to RFPs / RFIs / security questionnaires (RFx) for
   Solutions Consulting by mapping questions to approved answer content, flagging
@@ -10,13 +9,10 @@ purpose: >
 status: planned
 
 prompts:
-  - core/prompts/global_guardrails.md
-  - core/prompts/executive_persona.txt
+  - prompts/global_guardrails.md
+  - prompts/executive_persona.txt
 
-dependencies:
-  skills: []
-  playbooks:
-    - org/solutions-consulting/playbooks
+skills: []
 
 data_boundaries:
   reads:

@@ -1,8 +1,7 @@
 # Agent identity — placeholder POC config. No secrets.
-# Conforms to testing/schemas/agent-config.schema.json
 id: roi-generator-agent
 name: ROI / Value Model Generator Agent
-owner_domain: value-management
+owner: scvm
 purpose: >
   Builds defensible ROI and business-value models for Value Management
   engagements — gathering customer baseline inputs, applying approved value
@@ -11,14 +10,11 @@ purpose: >
 status: planned
 
 prompts:
-  - core/prompts/global_guardrails.md
-  - core/prompts/executive_persona.txt
+  - prompts/global_guardrails.md
+  - prompts/executive_persona.txt
 
-dependencies:
-  skills:
-    - core/skills/monday-impact-reporter
-  playbooks:
-    - org/value-management/playbooks
+skills:
+  - skills/monday-impact-reporter
 
 data_boundaries:
   reads:

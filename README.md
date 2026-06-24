@@ -1,15 +1,14 @@
 # Workiva SCVM Skill Library
 
-An org-wide **AI asset library proof-of-concept** for **SCVM** — spanning
-**Solutions Consulting**, **Value Management**, and **Demo Engineering**. It is a
-shared, version-controlled home for the reusable AI capabilities (skills,
-prompts) and domain identities (agents, playbooks) the SCVM org uses to do
-repeatable, high-leverage knowledge work.
+A shared, version-controlled **AI skill library proof-of-concept** for the
+**Workiva SCVM** org — Solutions Consulting, Value Management, and Demo
+Engineering. We're one org sharing one library: reusable skills, the agents that
+compose them, and a few shared prompt primitives.
 
 > **Status: POC / early.** This repository is an experiment in packaging SCVM's
 > repeatable workflows as portable, reviewable assets. Expect rough edges.
-> Nothing here is an official Workiva product, and asset behavior should be
-> reviewed before it touches customer-facing or system-of-record work.
+> Nothing here is an official Workiva product, and behavior should be reviewed
+> before it touches customer-facing or system-of-record work.
 
 ---
 
@@ -21,183 +20,182 @@ ROI models, and pressure-testing plans before build. Much of that lives in
 people's heads or in one-off prompts.
 
 This library captures those workflows once, as structured assets, so the org can
-**standardize**, **share**, **version/review**, and **govern** them — and
-evaluate whether a shared AI library is worth scaling across all of SCVM.
-
-This is the evolution of the original *Workiva Demo Consulting Skill Library*
-into an **org-wide** structure with a clean separation between **capabilities**
-and **identities** (below).
+**standardize**, **share**, **version/review**, and reuse them — and evaluate
+whether a shared AI library is worth scaling across all of SCVM. It grew out of
+the original *Workiva Demo Consulting Skill Library*.
 
 ---
 
-## Architecture: capabilities vs. identities
+## How it's organized
 
-The central design decision is a split between **what the system can do** and
-**who does it**:
+One org, one flat library. Three top-level buckets plus the docs:
 
-- **`core/` — capabilities (shared, stateless, domain-agnostic).**
-  - `core/skills/` — reusable Agent Skills any domain can compose.
-  - `core/prompts/` — shared prompts: governance guardrails and personas.
-- **`org/<domain>/` — identities (domain-specific).**
-  - `org/<domain>/agents/` — agent configs that *compose* core skills + prompts
-    + domain playbooks into a named identity with declared data boundaries.
-  - `org/<domain>/playbooks/` — multi-step, domain-specific workflows.
-- **`testing/` — the contribution contract.** JSON schemas + a validator that
-  enforce it.
-
-Domains: `solutions-consulting`, `value-management`, `demo-engineering`.
+- **`skills/`** — reusable capabilities and playbooks. Each skill is a folder with
+  a `SKILL.md` the agent follows. Multi-step workflows (like the demo-build
+  office hours + plan reviews) live here too, nested where it makes sense.
+- **`agents/`** — agent identities (`*.yaml`) that *compose* skills and prompts
+  into a named role, and declare their data boundaries and required env vars.
+- **`prompts/`** — shared prompt primitives every agent inherits (governance
+  guardrails, executive persona).
+- **`ASSET_INDEX.md`** — the unified catalog of everything in the library.
 
 ```
 workiva-scvm-skill-library/
-├── README.md                 # this file
-├── CONTRIBUTING.md           # PR + schema + security rules
-├── ASSET_INDEX.md            # the catalog of every asset
-├── NOTICE.md                 # licensing / ownership (POC — terms TBD)
+├── README.md              # this file
+├── CONTRIBUTING.md        # how to add or change an asset
+├── ASSET_INDEX.md         # unified catalog of every asset
+├── NOTICE.md              # licensing / ownership (POC — terms TBD)
 ├── .gitignore
-├── core/
-│   ├── skills/               # stateless reusable capabilities
-│   │   ├── dc-tracker/
-│   │   ├── monday-board-auditor/
-│   │   └── monday-impact-reporter/
-│   └── prompts/
-│       ├── global_guardrails.md
-│       └── executive_persona.txt
-├── org/
-│   ├── solutions-consulting/
-│   │   ├── agents/rf_responder_agent.yaml
-│   │   └── playbooks/        # (placeholder: README)
-│   ├── value-management/
-│   │   ├── agents/roi_generator_agent.yaml
-│   │   └── playbooks/        # (placeholder: README)
-│   └── demo-engineering/
-│       ├── agents/office_hours_agent.yaml
-│       └── playbooks/
-│           └── workiva-demo-build-office-hours/
-│               ├── SKILL.md
-│               ├── plan-ceo-review/SKILL.md
-│               ├── plan-eng-review/SKILL.md
-│               └── plan-design-review/SKILL.md
-└── testing/
-    ├── schemas/
-    │   ├── agent-config.schema.json
-    │   └── skill-config.schema.json
-    └── validators/
-        ├── validate.py
-        └── README.md
+├── agents/
+│   ├── office_hours_agent.yaml
+│   ├── rf_responder_agent.yaml
+│   └── roi_generator_agent.yaml
+├── prompts/
+│   ├── global_guardrails.md
+│   └── executive_persona.txt
+└── skills/
+    ├── dc-tracker/SKILL.md
+    ├── monday-board-auditor/SKILL.md
+    ├── monday-impact-reporter/SKILL.md
+    └── workiva-demo-build-office-hours/
+        ├── SKILL.md
+        ├── plan-ceo-review/SKILL.md
+        ├── plan-eng-review/SKILL.md
+        └── plan-design-review/SKILL.md
 ```
 
-> **Structure note (demo-engineering):** the former top-level
-> `workiva-demo-build-office-hours` skill and its three nested `plan-*` reviews
-> are demo-build review **workflows**, so they now live as a **playbook** under
-> `org/demo-engineering/playbooks/`. Their `SKILL.md` contents are **preserved
-> exactly as delivered**. The owning identity is
-> [`org/demo-engineering/agents/office_hours_agent.yaml`](./org/demo-engineering/agents/office_hours_agent.yaml),
-> which references the playbook paths and the relevant core skills.
+The mental model is simple: **skills are what the library can do; agents are the
+roles that put skills to work; prompts are the shared rules they all follow.**
+
+> The three `plan-*` reviews are bundled **inside**
+> `skills/workiva-demo-build-office-hours/` because they're used together as one
+> demo-build review flow. Their `SKILL.md` contents are preserved exactly as
+> delivered.
 
 ---
 
-## The asset catalog
+## The catalog
 
-See **[ASSET_INDEX.md](./ASSET_INDEX.md)** for the full catalog, categorized by
-asset type, function, target audience, owning domain, and downstream
-dependencies. At a glance:
+See **[ASSET_INDEX.md](./ASSET_INDEX.md)** for the full list with descriptions.
+At a glance:
 
-- **Core skills:** `dc-tracker`, `monday-board-auditor`, `monday-impact-reporter`.
-- **Core prompts:** `global_guardrails.md`, `executive_persona.txt`.
-- **Agents:** `rf-responder-agent` (SC), `roi-generator-agent` (VM),
-  `office-hours-agent` (DE).
-- **Playbooks:** `workiva-demo-build-office-hours` (+ `plan-ceo/eng/design-review`).
-
----
-
-## Governance
-
-Every asset inherits **[`core/prompts/global_guardrails.md`](./core/prompts/global_guardrails.md)**:
-no credentials in prompts, respect declared data boundaries, cite/report sources,
-never fabricate Workiva policy, and require human review for customer-facing or
-legal/financial output.
-
-| Dimension | `core/` capabilities | `org/` identities |
-|-----------|----------------------|-------------------|
-| Nature | what the system *can do* | *who* does it & how |
-| State | stateless, reusable | domain-specific |
-| Owner | SCVM core (shared) | the named domain |
-| Data boundaries | declared by the calling agent | **declared in the agent config** |
-| Review | code-style review | code-style review **+** data-safety **+** domain owner |
-
-**Agent configs must declare** `data_boundaries`,
-`required_environment_variables`, and downstream `dependencies` — enforced by
-[`testing/schemas/agent-config.schema.json`](./testing/schemas/agent-config.schema.json).
+- **Skills:** `dc-tracker`, `monday-board-auditor`, `monday-impact-reporter`,
+  `workiva-demo-build-office-hours` (+ `plan-ceo-review`, `plan-eng-review`,
+  `plan-design-review`).
+- **Agents:** `office-hours-agent`, `rf-responder-agent`, `roi-generator-agent`.
+- **Prompts:** `global_guardrails.md`, `executive_persona.txt`.
 
 ---
 
-## Contribution workflow
+## Expected skill structure
 
-See **[CONTRIBUTING.md](./CONTRIBUTING.md)**. Short version:
+Each skill lives in its own folder under `skills/`; the folder name matches the
+skill's `name`. At minimum a skill is a single `SKILL.md`:
 
-1. Branch — never commit to the default branch.
-2. Add the asset in the right place (`core/skills`, `core/prompts`,
-   `org/<domain>/agents`, or `org/<domain>/playbooks`).
-3. Make it pass validation (below).
-4. Update [ASSET_INDEX.md](./ASSET_INDEX.md).
-5. Open a PR with the required sections; get one review (data-safety + domain
-   owner where applicable).
+```
+skills/<skill-name>/
+├── SKILL.md            # required: frontmatter + instructions
+├── references/         # optional: longer docs pulled in on demand
+├── assets/             # optional: templates, samples
+└── scripts/            # optional: helper scripts
+```
+
+`SKILL.md` starts with YAML frontmatter, then the instruction body:
+
+```markdown
+---
+name: my-skill                 # kebab-case, matches the folder name
+description: >                  # when to use it + what it produces + triggers
+  One or two sentences telling the agent exactly when to invoke this skill.
+metadata:                       # optional free-form metadata
+  author: Your Name / Team
+  version: 1.0.0
+---
+
+# My Skill
+
+Instructions the agent follows when the skill is invoked...
+```
+
+The stock validator accepts these frontmatter fields: `name`, `description`,
+`metadata`, `allowed-tools`, `compatibility`, `license`. Keep custom fields under
+`metadata:` so they validate cleanly.
+
+---
+
+## Installing and using a skill
+
+These skills target agent runtimes that support the Agent Skills format (e.g.
+Claude Code / Claude apps with skills enabled).
+
+```bash
+# copy a skill into your runtime's skills directory
+cp -r skills/dc-tracker ~/.claude/skills/
+
+# or clone the repo and point your runtime's skill search path at skills/
+git clone <repo-url> workiva-scvm-skill-library
+```
+
+Once installed, invoke a skill by describing the task in natural language (the
+`description` tells the agent when to fire) or by its slash name where supported
+(e.g. `/plan-ceo-review`).
+
+Agents in `agents/` are config that names which skills + prompts a role composes;
+load them into a runtime that supports agent configs, or use them as a reference
+for assembling the same role by hand.
 
 ---
 
 ## Validation
 
-Two layers:
+Skill structure is checked with the `agentskills` CLI:
 
 ```bash
-# 1. Stock Agent Skills structural check (skills & playbooks)
-for d in core/skills/*/; do echo "== $d =="; agentskills validate "$d"; done
+# validate one skill
+agentskills validate skills/dc-tracker
 
-# 2. SCVM contribution-contract check (agents + skill/playbook frontmatter)
-python3 testing/validators/validate.py
+# validate everything
+for d in skills/*/; do echo "== $d =="; agentskills validate "$d"; done
 ```
 
 Current status (POC):
 
-| Asset | Stock `agentskills validate` |
-|-------|------------------------------|
-| `core/skills/dc-tracker` | ✅ pass |
-| `core/skills/monday-board-auditor` | ✅ pass |
-| `core/skills/monday-impact-reporter` | ✅ pass |
-| `org/.../workiva-demo-build-office-hours` | ⚠️ fails — extra field `version` |
-| `org/.../plan-ceo-review` | ⚠️ fails — extended `gstack` frontmatter (`benefits-from`, `gbrain`, …) |
-| `org/.../plan-eng-review` | ⚠️ fails — extended `gstack` frontmatter |
-| `org/.../plan-design-review` | ⚠️ fails — extra fields (`preamble-tier`, `interactive`, `triggers`, `version`) |
+| Skill | `agentskills validate` |
+|-------|------------------------|
+| `skills/dc-tracker` | ✅ pass |
+| `skills/monday-board-auditor` | ✅ pass |
+| `skills/monday-impact-reporter` | ✅ pass |
+| `skills/workiva-demo-build-office-hours` | ⚠️ fails — extra field `version` |
+| `skills/workiva-demo-build-office-hours/plan-ceo-review` | ⚠️ fails — extended `gstack` frontmatter |
+| `skills/workiva-demo-build-office-hours/plan-eng-review` | ⚠️ fails — extended `gstack` frontmatter |
+| `skills/workiva-demo-build-office-hours/plan-design-review` | ⚠️ fails — extra fields (`preamble-tier`, `interactive`, `triggers`, `version`) |
 
-The four ⚠️ playbook assets originate from the external **gstack** skill
-ecosystem and use extended frontmatter that the stock validator rejects. They are
-**functional in their origin runtime**; the failures are schema-strictness
-mismatches, not broken assets, and their content has been **preserved exactly as
-delivered**. Normalizing them (moving extended fields under `metadata:` or
-labeling `metadata.migration_status`) is tracked on the [rollout plan](#rollout-plan).
-The SCVM validator reports these as **WARN**, not ERROR, so they do not block CI.
-
-All three agent configs and all skill/playbook frontmatter pass the SCVM
-contract check (0 errors). The SCVM validator uses `jsonschema` for full
-validation when installed and falls back to a required-fields check otherwise.
+The four ⚠️ skills come from the external **gstack** ecosystem and use extended
+frontmatter the stock validator rejects. They are functional in their origin
+runtime; the failures are schema-strictness mismatches, not broken skills, and
+their content is **preserved exactly as delivered**. Normalizing them (moving
+extended fields under `metadata:`) is future cleanup, not blocking.
 
 ---
 
-## Rollout plan for SCVM
+## Contributing
 
-- **Phase 0 — POC (now):** Establish the org-wide layout
-  (capabilities vs. identities), migrate existing Demo skills into `core/`, seed
-  one agent per domain, and stand up the contribution contract (schemas +
-  validator).
-- **Phase 1 — Hardening:** Normalize the gstack playbook frontmatter to clean
-  validation, flesh out the SC and VM playbooks behind their agents, and wire the
-  validator into pre-commit/CI.
-- **Phase 2 — Broaden contributors:** Onboard each domain's contributors, add
-  asset templates, and document data sources (board IDs, KB endpoints) centrally.
-- **Phase 3 — SCVM-wide rollout:** Publish install/usage guidance, run validation
-  on every PR in CI, and assign maintainers/owners per domain.
-- **Phase 4 — Governance at scale:** Define deprecation, versioning, and a review
-  rota so the library stays trustworthy as it grows across SCVM.
+See [CONTRIBUTING.md](./CONTRIBUTING.md). Short version: branch, add your asset
+under `skills/`, `agents/`, or `prompts/`, validate skills with
+`agentskills validate`, update `ASSET_INDEX.md`, open a small PR, get one review.
+No secrets, ever.
+
+---
+
+## Roadmap
+
+- **Now — POC:** Seed the library with the team's existing skills and agents;
+  prove the add → validate → review loop works.
+- **Next — Hardening:** Bring the gstack skills to clean validation, add per-skill
+  usage notes, document data sources (board IDs, etc.).
+- **Then — Broaden:** Onboard more SCVM contributors; add skill templates.
+- **Later — Rollout:** Publish install/usage guidance for all of SCVM and wire
+  `agentskills validate` into CI on every PR.
 
 ---
 

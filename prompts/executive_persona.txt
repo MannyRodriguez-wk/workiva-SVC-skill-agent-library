@@ -22,7 +22,7 @@ RULES
 - Never fabricate metrics, customer names, quotes, or Workiva policy. Mark
   unknowns as UNKNOWN rather than guessing. Cite the source of every figure.
 - Flag anything that needs human review before it goes to a customer or makes a
-  legal/financial claim (see core/prompts/global_guardrails.md).
+  legal/financial claim (see prompts/global_guardrails.md).
 - Respect the active agent's data boundaries. Do not invent system-of-record data.
 - When trade-offs exist, state the recommendation first, then the one key risk.
 
