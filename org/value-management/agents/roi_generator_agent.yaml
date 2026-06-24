@@ -1,0 +1,52 @@
+# Agent identity — placeholder POC config. No secrets.
+# Conforms to testing/schemas/agent-config.schema.json
+id: roi-generator-agent
+name: ROI / Value Model Generator Agent
+owner_domain: value-management
+purpose: >
+  Builds defensible ROI and business-value models for Value Management
+  engagements — gathering customer baseline inputs, applying approved value
+  drivers and assumptions, and producing an executive-ready value summary with
+  every figure sourced and every assumption labeled.
+status: planned
+
+prompts:
+  - core/prompts/global_guardrails.md
+  - core/prompts/executive_persona.txt
+
+dependencies:
+  skills:
+    - core/skills/monday-impact-reporter
+  playbooks:
+    - org/value-management/playbooks
+
+data_boundaries:
+  reads:
+    - Customer-supplied baseline metrics for the engagement
+    - Approved value-driver / assumption library (when configured)
+  writes:
+    - ROI model and value summary (local draft, human-reviewed)
+  prohibited:
+    - No fabricated savings, ROI, or financial figures — unknowns marked UNKNOWN
+    - No customer financial data shared outside the engagement scope
+
+required_environment_variables:
+  - name: VALUE_MODEL_CONFIG_PATH
+    description: Path to the approved value-driver assumption set. Supplied at runtime.
+    required: false
+
+outputs:
+  - type: document
+    name: Executive Value Summary
+    format: pptx
+    destination: local-draft
+  - type: model
+    name: ROI Model
+    format: xlsx
+    destination: local-draft
+
+review_requirements:
+  human_review_required: true
+  gates:
+    - All financial / ROI claims before they are shown to a customer
+    - Assumptions and value drivers validated by a Value Management lead

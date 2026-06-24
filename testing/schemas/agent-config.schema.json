@@ -1,0 +1,132 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/MannyRodriguez-wk/workiva-SCVM-skill-library/testing/schemas/agent-config.schema.json",
+  "title": "SCVM Agent Config",
+  "description": "Contribution contract for an agent identity under org/<domain>/agents/. Agents are identities that compose core skills, playbooks, and prompts. Every agent MUST declare its data boundaries, required environment variables, and downstream dependencies.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "name",
+    "owner_domain",
+    "purpose",
+    "status",
+    "prompts",
+    "dependencies",
+    "data_boundaries",
+    "required_environment_variables",
+    "outputs",
+    "review_requirements"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "description": "Stable kebab-case identifier, unique within the repo."
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable display name."
+    },
+    "owner_domain": {
+      "type": "string",
+      "enum": ["solutions-consulting", "value-management", "demo-engineering", "core"],
+      "description": "Owning SCVM domain."
+    },
+    "purpose": {
+      "type": "string",
+      "minLength": 10,
+      "description": "What this agent does and the outcome it produces."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["planned", "poc", "active", "deprecated"],
+      "description": "Lifecycle status."
+    },
+    "prompts": {
+      "type": "array",
+      "description": "Repo-relative paths to prompt assets this agent loads. global_guardrails.md is strongly recommended.",
+      "items": { "type": "string", "pattern": "^(core|org)/.+" },
+      "uniqueItems": true
+    },
+    "dependencies": {
+      "type": "object",
+      "description": "Downstream capability dependencies this agent composes.",
+      "additionalProperties": false,
+      "required": ["skills", "playbooks"],
+      "properties": {
+        "skills": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^core/skills/.+" },
+          "uniqueItems": true,
+          "description": "Repo-relative paths to core skills."
+        },
+        "playbooks": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^org/.+" },
+          "uniqueItems": true,
+          "description": "Repo-relative paths to org playbooks."
+        }
+      }
+    },
+    "data_boundaries": {
+      "type": "object",
+      "description": "Explicit declaration of what the agent may read, may write, and must never touch.",
+      "additionalProperties": false,
+      "required": ["reads", "writes", "prohibited"],
+      "properties": {
+        "reads": { "type": "array", "items": { "type": "string" } },
+        "writes": { "type": "array", "items": { "type": "string" } },
+        "prohibited": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string" },
+          "description": "At least one explicit prohibition is required."
+        }
+      }
+    },
+    "required_environment_variables": {
+      "type": "array",
+      "description": "Runtime-supplied secrets/config by NAME ONLY. Never commit values.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "description"],
+        "properties": {
+          "name": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" },
+          "description": { "type": "string", "minLength": 1 },
+          "required": { "type": "boolean", "default": true }
+        }
+      }
+    },
+    "outputs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["type", "name"],
+        "properties": {
+          "type": { "type": "string", "enum": ["document", "model", "report", "message", "data"] },
+          "name": { "type": "string", "minLength": 1 },
+          "format": { "type": "string" },
+          "destination": { "type": "string" }
+        }
+      }
+    },
+    "review_requirements": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["human_review_required", "gates"],
+      "properties": {
+        "human_review_required": { "type": "boolean" },
+        "gates": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Conditions that force human review before external use."
+        }
+      }
+    }
+  }
+}

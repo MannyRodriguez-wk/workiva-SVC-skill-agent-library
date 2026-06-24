@@ -1,4 +1,40 @@
-# OS / editor cruft
+# ─── Secrets & credentials — NEVER commit ───────────────────────────────
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.keystore
+id_rsa
+id_dsa
+id_ecdsa
+id_ed25519
+*.crt
+secrets.*
+secret.*
+credentials.*
+credentials
+.netrc
+.npmrc
+.pypirc
+*token*.json
+*service-account*.json
+gha-creds-*.json
+.aws/
+.gcloud/
+*.tfvars
+.terraform/
+
+# ─── Local environment / config overrides ──────────────────────────────
+.env.local
+.envrc
+.direnv/
+settings.local.json
+*.local
+
+# ─── OS / editor cruft ─────────────────────────────────────────────────
 .DS_Store
 Thumbs.db
 *.swp
@@ -7,13 +43,13 @@ Thumbs.db
 .vscode/
 *.code-workspace
 
-# Logs / temp
+# ─── Logs / temp / caches ──────────────────────────────────────────────
 *.log
 *.tmp
 tmp/
 .cache/
 
-# Python (helper scripts / tooling)
+# ─── Python tooling ────────────────────────────────────────────────────
 __pycache__/
 *.py[cod]
 .venv/
@@ -23,25 +59,21 @@ env/
 .pytest_cache/
 .ruff_cache/
 
-# Node (helper scripts / tooling)
+# ─── Node tooling ──────────────────────────────────────────────────────
 node_modules/
+npm-debug.log*
+yarn-error.log*
 
-# Environment / secrets — never commit credentials
-.env
-.env.*
-*.pem
-*.key
-secrets.*
-credentials.*
-
-# Generated artifacts (decks, exports) — regenerate from skills, don't commit
+# ─── Generated artifacts (decks, exports) — regenerate, don't commit ───
 *.pptx
 *.xlsx
 *.pdf
+*.docx
 out/
 build/
 dist/
 
-# Repackaged skill bundles (skills live unpacked under skills/)
+# ─── Packaged asset bundles (assets live unpacked under core/ and org/) ─
 *.skill
 *.zip
+*.tar.gz

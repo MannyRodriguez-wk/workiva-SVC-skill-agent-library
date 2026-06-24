@@ -1,0 +1,47 @@
+# Agent identity — placeholder POC config. No secrets.
+# Conforms to testing/schemas/agent-config.schema.json
+id: rf-responder-agent
+name: RFx Responder Agent
+owner_domain: solutions-consulting
+purpose: >
+  Drafts first-pass responses to RFPs / RFIs / security questionnaires (RFx) for
+  Solutions Consulting by mapping questions to approved answer content, flagging
+  gaps, and producing an executive-ready response draft for human review.
+status: planned
+
+prompts:
+  - core/prompts/global_guardrails.md
+  - core/prompts/executive_persona.txt
+
+dependencies:
+  skills: []
+  playbooks:
+    - org/solutions-consulting/playbooks
+
+data_boundaries:
+  reads:
+    - Approved RFx answer library / knowledge base (read-only, when configured)
+    - Inbound RFx documents provided for the engagement
+  writes:
+    - RFx response draft (local, human-reviewed before delivery)
+  prohibited:
+    - No fabricated Workiva policy, security, compliance, or contractual claims
+    - No customer confidential data moved outside the engagement scope
+
+required_environment_variables:
+  - name: RFX_KB_API_TOKEN
+    description: Read-only token for the approved answer knowledge base. Supplied at runtime; never committed.
+    required: false
+
+outputs:
+  - type: document
+    name: RFx Response Draft
+    format: docx
+    destination: local-draft
+
+review_requirements:
+  human_review_required: true
+  gates:
+    - All security, compliance, and legal answers before submission
+    - Any commitment about Workiva capabilities, SLAs, or roadmap
+    - Final document before it is sent to the prospect

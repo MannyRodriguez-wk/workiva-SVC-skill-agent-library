@@ -1,91 +1,128 @@
 # Contributing
 
-Thanks for adding to the Workiva Demo Consulting Skill Library. This is a
-proof-of-concept shared by the Demo Consulting team and the broader Solution
-Consulting org, so the bar is "useful, accurate, and safe for shared data" —
-not "perfect." Keep it practical.
+Thanks for adding to the **Workiva SCVM Skill Library** — the org-wide AI asset
+library shared by Solutions Consulting, Value Management, and Demo Engineering.
+This is a proof-of-concept, so the bar is "useful, accurate, governed, and safe
+for shared data." Contributions are reviewed like code. **PRs that don't meet the
+rules below will be sent back.**
 
-## Before you start
+## Where things go (capabilities vs. identities)
 
-- **One skill, one folder.** Each skill lives in `skills/<skill-name>/` and the
-  folder name must match the `name:` in its frontmatter (kebab-case).
-- **Don't edit someone else's skill content without asking.** Trigger wording,
-  board IDs, and data sources are load-bearing. Small fixes (typos, broken
-  links) are fine; behavior changes get a heads-up to the owner.
+Put your asset in the right place — this is the core of the architecture:
 
-## Adding a new skill
+| You are adding… | Path | Type |
+|-----------------|------|------|
+| A reusable, stateless capability | `core/skills/<name>/SKILL.md` | skill |
+| A shared prompt / persona / guardrail | `core/prompts/<name>.{md,txt}` | prompt |
+| A domain agent identity | `org/<domain>/agents/<name>_agent.yaml` | agent |
+| A domain-specific multi-step workflow | `org/<domain>/playbooks/<name>/SKILL.md` | playbook |
 
-1. **Create the folder and `SKILL.md`:**
+Domains: `solutions-consulting`, `value-management`, `demo-engineering`.
 
-   ```bash
-   mkdir -p skills/my-skill
-   $EDITOR skills/my-skill/SKILL.md
-   ```
+- **Capabilities (`core/`)** must be stateless and domain-agnostic — anything
+  domain-specific belongs in `org/`.
+- **Identities (`org/`)** compose capabilities; they don't re-implement them.
+- **One asset, one folder/file.** Skill/playbook folder names must match the
+  `name:` in frontmatter (kebab-case).
+- **Don't edit someone else's asset content without asking.** Trigger wording,
+  board IDs, prompts, and data sources are load-bearing. Typos/links are fine;
+  behavior changes get a heads-up to the owning domain.
 
-2. **Write good frontmatter.** Required: `name`, `description`. The
-   `description` is what makes the agent pick your skill at the right time —
-   spell out *when to use it* and the natural-language triggers, plus what it
-   produces. Put any extra metadata under `metadata:` so it validates cleanly.
+## Schema rules (the contribution contract)
 
-   ```markdown
-   ---
-   name: my-skill
-   description: >
-     One or two sentences: what this does and exactly when to invoke it.
-     Use when the user says "...", "...", or any <task> request.
-   metadata:
-     author: Your Name / Team
-     version: 1.0.0
-   ---
+Schemas live in [`testing/schemas/`](./testing/schemas/). Both layers must pass
+before merge.
 
-   # My Skill
+### Agents — [`agent-config.schema.json`](./testing/schemas/agent-config.schema.json)
 
-   Clear, step-by-step instructions the agent follows...
-   ```
+Every agent YAML **must** include all of:
 
-3. **Bundle extras only if needed.** Longer docs go in `references/`, templates
-   and sample files in `assets/`, helper scripts in `scripts/`. Keep `SKILL.md`
-   the entry point.
+`id`, `name`, `owner_domain`, `purpose`, `status`, `prompts`, `dependencies`
+(with `skills` + `playbooks`), `data_boundaries` (with `reads`, `writes`, and at
+least one `prohibited`), `required_environment_variables`, `outputs`,
+`review_requirements`.
 
-4. **Validate:**
+Hard requirements:
 
-   ```bash
-   agentskills validate skills/my-skill
-   ```
+- **`data_boundaries`** — declare what the agent reads, writes, and must never
+  touch. At least one explicit `prohibited` entry.
+- **`required_environment_variables`** — every secret/config by **NAME ONLY**
+  (`^[A-Z][A-Z0-9_]*$`). **Never** put a value in the file.
+- **`dependencies`** — list downstream `core/skills/...` and `org/...` paths the
+  agent composes.
+- `prompts` should include `core/prompts/global_guardrails.md`.
 
-   New skills should pass. Allowed frontmatter fields are `name`, `description`,
-   `metadata`, `allowed-tools`, `compatibility`, `license`. If you have custom
-   fields, nest them under `metadata:`.
+### Skills & playbooks — [`skill-config.schema.json`](./testing/schemas/skill-config.schema.json)
 
-5. **Update the index.** Add a one-line entry to [SKILL_INDEX.md](./SKILL_INDEX.md).
+- Required frontmatter: `name` (kebab-case, matches folder) and `description`
+  (when to invoke + what it produces + triggers).
+- Stock-compatible fields: `name`, `description`, `metadata`, `allowed-tools`,
+  `compatibility`, `license`. **Put custom fields under `metadata:`.**
+- For imported assets with extended frontmatter (e.g. gstack), set
+  `metadata.migration_status` to one of `native` /
+  `preserved-extended-frontmatter` / `needs-normalization` and **do not silently
+  rewrite the original content** — preserve it and document the gap.
 
-6. **Open a PR** (see below).
+### Run validation before you push
 
-## Writing skills that touch shared data
+```bash
+# stock structural check
+agentskills validate core/skills/<name>          # or the playbook folder
 
-Several skills here read or write the system of record (Monday.com boards,
-quarterly trackers, leadership decks). If yours does:
+# SCVM contract check (agents + skill/playbook frontmatter)
+python3 testing/validators/validate.py           # whole repo
+python3 testing/validators/validate.py <path>    # just your file(s)
+```
 
-- **Never invent data.** If a field is unknown, the skill should ask, not guess.
-- **Confirm before overwriting** anything in a shared system.
-- **Document the data source** in the skill (board IDs, sheet names, etc.) so
-  reviewers can verify it.
-- **Close the loop** — the skill should summarize what it changed.
+`ERROR` blocks merge. `WARN` is allowed only for **documented** migration gaps
+(the gstack playbooks). New assets should produce **no** new warnings.
+
+## Security expectations
+
+Non-negotiable:
+
+- **No secrets, ever.** No API keys, tokens, passwords, connection strings, or
+  cookies in any prompt, skill, agent, asset, or commit. Secrets are runtime env
+  vars referenced by name only.
+- **No customer PII or confidential data** in assets or sample files.
+- **Respect data boundaries.** Don't add reads/writes an agent shouldn't have.
+- **Never fabricate** data, metrics, customer facts, or Workiva policy. Unknowns
+  are `UNKNOWN`, not guesses.
+- **Confirm before writing** to any system of record; never silently overwrite.
+- If you spot a committed secret, treat it as an incident: rotate and report.
+
+These mirror [`core/prompts/global_guardrails.md`](./core/prompts/global_guardrails.md),
+which every agent inherits.
 
 ## Pull requests
 
-- Branch off the default branch; don't commit skills directly to it.
-- Keep PRs focused: one skill (or one logical change) per PR.
-- In the description, say what the skill does, who it's for, and paste the
-  `agentskills validate` output.
-- Get **at least one review** from another Demo Consulting / SC team member.
-  Treat it like code review — reviewers check trigger accuracy, data sources,
-  and data-safety, and are not authorized to approve their own changes.
-- Squash-merge with a clear message.
+Branch off the default branch — **never** commit assets directly to it. Keep PRs
+focused: one asset (or one logical change) per PR.
+
+**Required PR sections:**
+
+1. **What & where** — the asset, its type, and which `core/`/`org/<domain>/`
+   path it lives in.
+2. **Audience & owner** — target audience and owning domain.
+3. **Dependencies** — core skills/prompts/playbooks it composes (for agents:
+   confirm `dependencies` + `data_boundaries` + `required_environment_variables`
+   are declared).
+4. **Validation output** — paste both `agentskills validate` and
+   `python3 testing/validators/validate.py` results.
+5. **Data-safety statement** — what it reads/writes, and that it confirms before
+   touching a system of record.
+6. **Index update** — confirm [`ASSET_INDEX.md`](./ASSET_INDEX.md) is updated in
+   the same PR.
+
+**Review:** at least one reviewer; for `org/` assets that touch shared data, also
+the owning domain. Treat it like code review — reviewers check trigger accuracy,
+data sources, data-safety, and schema compliance. **Reviewers are not authorized
+to approve their own changes or to rubber-stamp.** Squash-merge with a clear
+message.
 
 ## Style
 
-- Markdown, kebab-case skill names, US English.
+- Markdown, kebab-case asset names, US English.
 - Be explicit about triggers — that's how the agent knows when to fire.
-- Prefer short, imperative instructions in the skill body.
-- No secrets, credentials, or customer PII in any skill or asset.
+- Short, imperative instructions in skill/playbook bodies.
+- No secrets, credentials, or customer PII — anywhere.

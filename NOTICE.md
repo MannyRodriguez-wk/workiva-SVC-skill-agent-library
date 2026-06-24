@@ -1,7 +1,9 @@
 # Notice
 
-This repository is an internal **proof-of-concept** created by the Workiva Demo
-Consulting team. It is not an official Workiva product or release.
+This repository is an internal **proof-of-concept** for the Workiva **SCVM** org
+(Solutions Consulting, Value Management, and Demo Engineering). It originated with
+the Demo Consulting team and is being scaled into an org-wide AI asset library. It
+is not an official Workiva product or release.
 
 ## Licensing
 
@@ -19,9 +21,10 @@ replaced or supplemented with the approved language (and a `LICENSE` file added)
 
 ## Ownership / contact
 
-Maintained by the Workiva Demo Consulting team (Manny Rodriguez, Bryan Kowal,
-Richie Warmkessel) within the broader Solution Consulting org. Direct questions
-about reuse, contribution, or licensing to the repository owners.
+Maintained within the Workiva SCVM org, seeded by the Demo Consulting team
+(Manny Rodriguez, Bryan Kowal, Richie Warmkessel) and spanning Solutions
+Consulting, Value Management, and Demo Engineering. Direct questions about reuse,
+contribution, or licensing to the repository owners.
 
 ## Third-party content
 
