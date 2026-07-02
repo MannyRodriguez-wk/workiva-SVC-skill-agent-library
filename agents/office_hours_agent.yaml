@@ -1,7 +1,7 @@
 # Agent identity — placeholder POC config. No secrets.
 id: office-hours-agent
 name: Demo Build Office Hours Agent
-owner: scvm
+owner: svc
 purpose: >
   Runs YC-style "office hours" forcing-question sessions to design polished,
   in-platform Workiva demo packages, then drives the demo build plan through
@@ -10,7 +10,6 @@ purpose: >
 status: poc
 
 skills:
-  - skills/dc-tracker
   - skills/workiva-demo-build-office-hours
   - skills/workiva-demo-build-office-hours/plan-ceo-review
   - skills/workiva-demo-build-office-hours/plan-eng-review

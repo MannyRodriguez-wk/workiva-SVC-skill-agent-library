@@ -1,10 +1,10 @@
-# Asset Index — Workiva SCVM Skill Library
+# Asset Index — SVC Skill & Agent Library
 
-The unified catalog of every asset in this library. One org, one library.
+The catalog of every asset in this library.
 
 **Asset types**
 - **skill** — a reusable capability or workflow (`skills/<name>/SKILL.md`).
-- **agent** — an identity that composes skills (`agents/<name>_agent.yaml`).
+- **agent** — a config that composes skills (`agents/<name>_agent.yaml`).
 
 **Validation legend:** ✅ passes stock `agentskills validate` · ⚠️ functional but
 uses extended (`gstack`) frontmatter the stock validator rejects — content
@@ -16,13 +16,10 @@ preserved as delivered; see [README → Validation](./README.md#validation).
 
 | Asset | Function | Target audience | Used by | Validates |
 |-------|----------|-----------------|---------|-----------|
-| [`dc-tracker`](./skills/dc-tracker/SKILL.md) | Rolling, quarter-indexed project ledger + branded PPTX recap deck generator. Triggers: "log a project", "update the tracker", "Q1 recap", "generate the deck". | Demo Consulting / SC team | `office-hours-agent`; external `slide-deck-generator-beta`, `workiva-guidelines-beta` | ✅ |
-| [`monday-board-auditor`](./skills/monday-board-auditor/SKILL.md) | Audits the four Demo Engineering Monday.com boards for data-quality issues before reporting. Triggers: "audit our boards", "what's stale", "board health check". | Demo Engineering / Presales SC | Pairs with `monday-impact-reporter` | ✅ |
-| [`monday-impact-reporter`](./skills/monday-impact-reporter/SKILL.md) | Turns delivered Monday.com work into a QBR-ready leadership impact narrative. Triggers: "prep my QBR", "impact report", "leadership report". | Leadership / Presales SC | `roi-generator-agent` | ✅ |
-| [`workiva-demo-build-office-hours`](./skills/workiva-demo-build-office-hours/SKILL.md) | YC-style forcing-question session producing a Demo Build Design Doc. Triggers: "help me build a demo", "demo build office hours". | Demo Engineering / Presales SC | `office-hours-agent`; bundles the three `plan-*` reviews below | ⚠️ |
-| [`plan-ceo-review`](./skills/workiva-demo-build-office-hours/plan-ceo-review/SKILL.md) | CEO/founder-mode plan review — challenge premises, find the 10-star product, expand/strip scope. Triggers: "think bigger", "strategy review". | Demo Engineering / Presales SC | Nested under office-hours | ⚠️ |
-| [`plan-eng-review`](./skills/workiva-demo-build-office-hours/plan-eng-review/SKILL.md) | Eng-manager-mode plan review — architecture, data flow, edge cases, tests, performance. Triggers: "review the architecture", "lock in the plan". | Demo Engineering / Presales SC | Nested under office-hours | ⚠️ |
-| [`plan-design-review`](./skills/workiva-demo-build-office-hours/plan-design-review/SKILL.md) | Designer's-eye plan review — rates design dimensions 0–10 and fixes the plan to reach 10. Triggers: "review the design plan", "design critique". | Demo Engineering / Presales SC | Nested under office-hours | ⚠️ |
+| [`workiva-demo-build-office-hours`](./skills/workiva-demo-build-office-hours/SKILL.md) | YC-style forcing-question session producing a Demo Build Design Doc. Triggers: "help me build a demo", "demo build office hours". | Solution Consulting | `office-hours-agent`; bundles the three `plan-*` reviews below | ⚠️ |
+| [`plan-ceo-review`](./skills/workiva-demo-build-office-hours/plan-ceo-review/SKILL.md) | CEO/founder-mode plan review — challenge premises, find the 10-star product, expand/strip scope. Triggers: "think bigger", "strategy review". | Solution Consulting | Nested under office-hours | ⚠️ |
+| [`plan-eng-review`](./skills/workiva-demo-build-office-hours/plan-eng-review/SKILL.md) | Eng-manager-mode plan review — architecture, data flow, edge cases, tests, performance. Triggers: "review the architecture", "lock in the plan". | Solution Consulting | Nested under office-hours | ⚠️ |
+| [`plan-design-review`](./skills/workiva-demo-build-office-hours/plan-design-review/SKILL.md) | Designer's-eye plan review — rates design dimensions 0–10 and fixes the plan to reach 10. Triggers: "review the design plan", "design critique". | Solution Consulting | Nested under office-hours | ⚠️ |
 
 ---
 
@@ -30,12 +27,10 @@ preserved as delivered; see [README → Validation](./README.md#validation).
 
 | Asset | Function | Target audience | Composes | Status |
 |-------|----------|-----------------|----------|--------|
-| [`office_hours_agent.yaml`](./agents/office_hours_agent.yaml) | Runs demo-build "office hours" + plan reviews to produce a vetted Demo Build Design Doc. | Demo Engineering / Presales SC | skills: `workiva-demo-build-office-hours` (+ 3 plan reviews), `dc-tracker` | poc |
-| [`rf_responder_agent.yaml`](./agents/rf_responder_agent.yaml) | Drafts first-pass RFP/RFI/security-questionnaire responses for human review. | Solutions Consulting | env: `RFX_KB_API_TOKEN` | planned |
-| [`roi_generator_agent.yaml`](./agents/roi_generator_agent.yaml) | Builds defensible ROI / value models with every figure sourced and assumptions labeled. | Value Management; customer economic buyers | skills: `monday-impact-reporter`; env: `VALUE_MODEL_CONFIG_PATH` | planned |
+| [`office_hours_agent.yaml`](./agents/office_hours_agent.yaml) | Runs demo-build "office hours" + plan reviews to produce a vetted Demo Build Design Doc. | Solution Consulting | skills: `workiva-demo-build-office-hours` (+ 3 plan reviews) | poc |
 
 ---
 
 Agents must not embed credentials, must respect their declared data boundaries,
 cite sources, never fabricate Workiva policy, and require human review for
-customer-facing or legal/financial output. See [CONTRIBUTING.md](./CONTRIBUTING.md).
+customer-facing output. See [CONTRIBUTING.md](./CONTRIBUTING.md).

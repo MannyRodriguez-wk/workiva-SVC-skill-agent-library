@@ -1,57 +1,50 @@
-# Workiva SCVM Skill Library
+# SVC Skill & Agent Library
 
-A shared, version-controlled **AI skill library proof-of-concept** for the
-**Workiva SCVM** org — Solutions Consulting, Value Management, and Demo
-Engineering. We're one org sharing one library: reusable skills, the agents that
-compose them, and a few shared prompt primitives.
+`SVC-skill-agent-library` — a shared, version-controlled library of AI **skills**
+and **agent configs** for the Workiva **Solution Consulting (SC)** team. The goal
+is simple: any SC team member can download an agent config or a skill from here
+and use it in their own agent runtime.
 
-> **Status: POC / early.** This repository is an experiment in packaging SCVM's
+> **Status: POC / early.** This repository is an experiment in packaging SC's
 > repeatable workflows as portable, reviewable assets. Expect rough edges.
 > Nothing here is an official Workiva product, and behavior should be reviewed
-> before it touches customer-facing or system-of-record work.
+> before it touches customer-facing work.
 
 ---
 
 ## Why this exists
 
-SCVM teams do a lot of repeatable, high-value work — scoping demos, keeping
-Monday.com boards clean, rolling up quarterly impact, responding to RFx, building
-ROI models, and pressure-testing plans before build. Much of that lives in
-people's heads or in one-off prompts.
+SC teams do a lot of repeatable, high-value work — scoping demos, designing demo
+packages, and pressure-testing plans before build. Much of that lives in people's
+heads or in one-off prompts.
 
-This library captures those workflows once, as structured assets, so the org can
-**standardize**, **share**, **version/review**, and reuse them — and evaluate
-whether a shared AI library is worth scaling across all of SCVM. It grew out of
-the original *Workiva Demo Consulting Skill Library*.
+This library captures those workflows once, as structured assets, so the wider SC
+team can **download**, **reuse**, and **improve** them instead of re-deriving them
+each time.
 
 ---
 
 ## How it's organized
 
-One org, one flat library. Two top-level buckets plus the docs:
+One flat library. Two top-level buckets plus the docs:
 
 - **`skills/`** — reusable capabilities and playbooks. Each skill is a folder with
   a `SKILL.md` the agent follows. Multi-step workflows (like the demo-build
   office hours + plan reviews) live here too, nested where it makes sense.
-- **`agents/`** — agent identities (`*.yaml`) that *compose* skills into a named
+- **`agents/`** — agent configs (`*.yaml`) that *compose* skills into a named
   role, and declare their data boundaries and required env vars.
-- **`ASSET_INDEX.md`** — the unified catalog of everything in the library.
+- **`ASSET_INDEX.md`** — the catalog of everything in the library.
 
 ```
-workiva-scvm-skill-library/
+SVC-skill-agent-library/
 ├── README.md              # this file
 ├── CONTRIBUTING.md        # how to add or change an asset
-├── ASSET_INDEX.md         # unified catalog of every asset
+├── ASSET_INDEX.md         # catalog of every asset
 ├── NOTICE.md              # licensing / ownership (POC — terms TBD)
 ├── .gitignore
 ├── agents/
-│   ├── office_hours_agent.yaml
-│   ├── rf_responder_agent.yaml
-│   └── roi_generator_agent.yaml
+│   └── office_hours_agent.yaml
 └── skills/
-    ├── dc-tracker/SKILL.md
-    ├── monday-board-auditor/SKILL.md
-    ├── monday-impact-reporter/SKILL.md
     └── workiva-demo-build-office-hours/
         ├── SKILL.md
         ├── plan-ceo-review/SKILL.md
@@ -74,10 +67,9 @@ roles that put skills to work.**
 See **[ASSET_INDEX.md](./ASSET_INDEX.md)** for the full list with descriptions.
 At a glance:
 
-- **Skills:** `dc-tracker`, `monday-board-auditor`, `monday-impact-reporter`,
-  `workiva-demo-build-office-hours` (+ `plan-ceo-review`, `plan-eng-review`,
-  `plan-design-review`).
-- **Agents:** `office-hours-agent`, `rf-responder-agent`, `roi-generator-agent`.
+- **Skills:** `workiva-demo-build-office-hours` (+ `plan-ceo-review`,
+  `plan-eng-review`, `plan-design-review`).
+- **Agents:** `office-hours-agent`.
 
 ---
 
@@ -117,25 +109,25 @@ The stock validator accepts these frontmatter fields: `name`, `description`,
 
 ---
 
-## Installing and using a skill
+## Downloading and using an asset
 
-These skills target agent runtimes that support the Agent Skills format (e.g.
+These assets target agent runtimes that support the Agent Skills format (e.g.
 Claude Code / Claude apps with skills enabled).
 
 ```bash
-# copy a skill into your runtime's skills directory
-cp -r skills/dc-tracker ~/.claude/skills/
+# clone the library
+git clone <repo-url> SVC-skill-agent-library
 
-# or clone the repo and point your runtime's skill search path at skills/
-git clone <repo-url> workiva-scvm-skill-library
+# copy a skill into your runtime's skills directory
+cp -r SVC-skill-agent-library/skills/workiva-demo-build-office-hours ~/.claude/skills/
 ```
 
 Once installed, invoke a skill by describing the task in natural language (the
 `description` tells the agent when to fire) or by its slash name where supported
 (e.g. `/plan-ceo-review`).
 
-Agents in `agents/` are config that names which skills a role composes; load them
-into a runtime that supports agent configs, or use them as a reference for
+Agents in `agents/` are configs that name which skills a role composes; download
+one into a runtime that supports agent configs, or use it as a reference for
 assembling the same role by hand.
 
 ---
@@ -146,7 +138,7 @@ Skill structure is checked with the `agentskills` CLI:
 
 ```bash
 # validate one skill
-agentskills validate skills/dc-tracker
+agentskills validate skills/workiva-demo-build-office-hours
 
 # validate everything
 for d in skills/*/; do echo "== $d =="; agentskills validate "$d"; done
@@ -156,15 +148,12 @@ Current status (POC):
 
 | Skill | `agentskills validate` |
 |-------|------------------------|
-| `skills/dc-tracker` | ✅ pass |
-| `skills/monday-board-auditor` | ✅ pass |
-| `skills/monday-impact-reporter` | ✅ pass |
 | `skills/workiva-demo-build-office-hours` | ⚠️ fails — extra field `version` |
 | `skills/workiva-demo-build-office-hours/plan-ceo-review` | ⚠️ fails — extended `gstack` frontmatter |
 | `skills/workiva-demo-build-office-hours/plan-eng-review` | ⚠️ fails — extended `gstack` frontmatter |
 | `skills/workiva-demo-build-office-hours/plan-design-review` | ⚠️ fails — extra fields (`preamble-tier`, `interactive`, `triggers`, `version`) |
 
-The four ⚠️ skills come from the external **gstack** ecosystem and use extended
+These skills come from the external **gstack** ecosystem and use extended
 frontmatter the stock validator rejects. They are functional in their origin
 runtime; the failures are schema-strictness mismatches, not broken skills, and
 their content is **preserved exactly as delivered**. Normalizing them (moving
@@ -182,13 +171,13 @@ under `skills/` or `agents/`, validate skills with `agentskills validate`, updat
 
 ## Roadmap
 
-- **Now — POC:** Seed the library with the team's existing skills and agents;
-  prove the add → validate → review loop works.
+- **Now — POC:** Seed the library with a first skill + agent; prove the
+  download → use → contribute loop works for the SC team.
 - **Next — Hardening:** Bring the gstack skills to clean validation, add per-skill
-  usage notes, document data sources (board IDs, etc.).
-- **Then — Broaden:** Onboard more SCVM contributors; add skill templates.
-- **Later — Rollout:** Publish install/usage guidance for all of SCVM and wire
-  `agentskills validate` into CI on every PR.
+  usage notes.
+- **Then — Broaden:** Onboard more SC contributors; add skill templates.
+- **Later — Rollout:** Publish download/usage guidance for the wider SC team and
+  wire `agentskills validate` into CI on every PR.
 
 ---
 
