@@ -1,9 +1,8 @@
-# Workiva SCVM Skill Library
+# SVC Skill Library
 
 A shared, version-controlled **AI skill library proof-of-concept** for the
-**Workiva SCVM** org — Solutions Consulting, Value Management, and Demo
-Engineering. One org, one library: portable skills SCs can install in their own
-Claude app.
+Workiva **Solution Consulting (SC)** team — portable skills SCs can install in
+their own Claude app.
 
 > **Status: POC / early.** Internal experiment — not an official Workiva product.
 > Review behavior before customer-facing or system-of-record work.
@@ -34,7 +33,7 @@ Full catalog: **[ASSET_INDEX.md](./ASSET_INDEX.md)**
 ## Repository layout
 
 ```
-workiva-scvm-skill-library/
+SVC-skill-library/
 ├── SC_USAGE_GUIDE.md      # SC install + permissions + security (start here)
 ├── README.md              # this file
 ├── ASSET_INDEX.md         # skill catalog
@@ -49,8 +48,8 @@ workiva-scvm-skill-library/
         └── grillme.md
 ```
 
-Each skill is a folder with `SKILL.md` and optional `references/`, `assets/`, or
-`scripts/`.
+Each skill is a folder with its instruction file (`SKILL.md`, or `grillme.md`
+for the grill skill) and optional `references/`, `assets/`, or `scripts/`.
 
 ---
 
@@ -88,8 +87,8 @@ Stock validator fields: `name`, `description`, `metadata`, `allowed-tools`,
 ## Installing a skill
 
 ```bash
-git clone <repo-url> workiva-scvm-skill-library
-cp -r workiva-scvm-skill-library/skills/stop-slop ~/.claude/skills/
+git clone <repo-url> SVC-skill-library
+cp -r SVC-skill-library/skills/stop-slop ~/.claude/skills/
 ```
 
 See [SC_USAGE_GUIDE.md](./SC_USAGE_GUIDE.md) for full install options and

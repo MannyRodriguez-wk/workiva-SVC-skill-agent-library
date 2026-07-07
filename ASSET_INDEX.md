@@ -1,4 +1,4 @@
-# Asset Index — Workiva SCVM Skill Library
+# Asset Index — SVC Skill Library
 
 The unified catalog of every skill in this library.
 

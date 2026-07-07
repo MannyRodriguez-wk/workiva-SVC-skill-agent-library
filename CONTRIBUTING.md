@@ -1,8 +1,8 @@
 # Contributing
 
-Thanks for adding to the **Workiva SCVM Skill Library**. We're one org sharing
-one library, so keep it simple and practical. The bar is "useful, accurate, and
-safe for shared data."
+Thanks for adding to the **SVC Skill Library**. It's a shared library for
+the Solution Consulting team, so keep it simple and practical. The bar is
+"useful, accurate, and safe for shared data."
 
 ## Where things go
 
@@ -43,7 +43,7 @@ safe for shared data."
 - Branch off the default branch; keep PRs small and focused (one asset or one
   logical change).
 - Say what the asset does and paste the `agentskills validate` output for skills.
-- Get **one review** from another SCVM team member. Treat it like code review —
+- Get **one review** from another SC team member. Treat it like code review —
   check triggers, data sources, and that no secrets slipped in.
 - Squash-merge with a clear message.
 
