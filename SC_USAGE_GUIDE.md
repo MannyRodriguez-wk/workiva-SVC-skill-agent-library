@@ -66,22 +66,17 @@ If a skill needs a Sheet URL, paste only what is required (ID or URL). Remove ac
 ## How to navigate this repository
 
 ```
-workiva-scvm-skill-library/
-├── SC_USAGE_GUIDE.md          ← you are here
-├── README.md                  ← maintainer / repo overview
-├── ASSET_INDEX.md             ← catalog of skills
-├── CONTRIBUTING.md            ← how to propose changes
-└── skills/
-    ├── internal-apps-template-beta/
-    ├── stop-slop/
-    ├── tufte-charts/
-    └── grillme/
-        └── grillme.md
+SVC-skill-library/
+├── SC_USAGE_GUIDE.md          ← you are here (using skills)
+├── CONTRIBUTING.md            ← adding a skill or agent (2-step drop-in)
+├── ASSET_INDEX.md             ← catalog
+├── skills/                    ← skill folders + README starter template
+└── agents/                    ← agent YAML (empty for now) + README starter
 ```
 
-- **Start with `SC_USAGE_GUIDE.md`** for install, permissions, and safety.
-- **Open a skill’s `SKILL.md`** to see triggers and full instructions Claude follows.
-- **Check `references/`** inside a skill for long-form docs (stop-slop phrases, Tufte chart rules, etc.) — you usually do not need to read these; Claude pulls them when relevant.
+- **Using skills?** Stay in this guide.
+- **Contributing?** [CONTRIBUTING.md](./CONTRIBUTING.md) — copy-paste a template, open a PR. No CLI.
+- **Inside a skill,** open its `SKILL.md` for triggers and instructions.
 
 ---
 
@@ -92,17 +87,17 @@ These steps work for Claude Code / Claude desktop with Agent Skills support. Exa
 ### Option A — Copy one skill (recommended to try first)
 
 ```bash
-git clone <this-repo-url> workiva-scvm-skill-library
-cd workiva-scvm-skill-library
+git clone <this-repo-url> SVC-skill-library
+cd SVC-skill-library
 
-# copy a single skill into your user skills directory
+# copy one skill (skip skills/README.md — that's the contributor template)
 cp -r skills/stop-slop ~/.claude/skills/
 ```
 
-Repeat for each skill you want, or copy all at once:
+Repeat for each skill you want. Do not copy `skills/README.md` — that file is only for contributors.
 
 ```bash
-cp -r skills/* ~/.claude/skills/
+cp -r skills/internal-apps-template-beta skills/tufte-charts skills/grillme skills/stop-slop ~/.claude/skills/
 ```
 
 Restart Claude or start a new session so it picks up new skills.
