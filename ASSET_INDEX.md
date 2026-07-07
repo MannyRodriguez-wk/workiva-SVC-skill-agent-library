@@ -1,36 +1,24 @@
-# Asset Index — SVC Skill & Agent Library
+# Asset Index — SVC Skill Library
 
-The catalog of every asset in this library.
+The unified catalog of every skill in this library.
 
-**Asset types**
-- **skill** — a reusable capability or workflow (`skills/<name>/SKILL.md`).
-- **agent** — a config that composes skills (`agents/<name>_agent.yaml`).
-
-**Validation legend:** ✅ passes stock `agentskills validate` · ⚠️ functional but
-uses extended (`gstack`) frontmatter the stock validator rejects — content
-preserved as delivered; see [README → Validation](./README.md#validation).
+**Validation legend:** ✅ passes stock `agentskills validate` · ⚠️ functional but uses frontmatter the stock validator may reject — see [README → Validation](./README.md#validation).
 
 ---
 
 ## Skills
 
-| Asset | Function | Target audience | Used by | Validates |
-|-------|----------|-----------------|---------|-----------|
-| [`workiva-demo-build-office-hours`](./skills/workiva-demo-build-office-hours/SKILL.md) | YC-style forcing-question session producing a Demo Build Design Doc. Triggers: "help me build a demo", "demo build office hours". | Solution Consulting | `office-hours-agent`; bundles the three `plan-*` reviews below | ⚠️ |
-| [`plan-ceo-review`](./skills/workiva-demo-build-office-hours/plan-ceo-review/SKILL.md) | CEO/founder-mode plan review — challenge premises, find the 10-star product, expand/strip scope. Triggers: "think bigger", "strategy review". | Solution Consulting | Nested under office-hours | ⚠️ |
-| [`plan-eng-review`](./skills/workiva-demo-build-office-hours/plan-eng-review/SKILL.md) | Eng-manager-mode plan review — architecture, data flow, edge cases, tests, performance. Triggers: "review the architecture", "lock in the plan". | Solution Consulting | Nested under office-hours | ⚠️ |
-| [`plan-design-review`](./skills/workiva-demo-build-office-hours/plan-design-review/SKILL.md) | Designer's-eye plan review — rates design dimensions 0–10 and fixes the plan to reach 10. Triggers: "review the design plan", "design critique". | Solution Consulting | Nested under office-hours | ⚠️ |
+| Asset | Function | Target audience | Triggers (examples) | Validates |
+|-------|----------|-----------------|---------------------|-----------|
+| [`internal-apps-template-beta`](./skills/internal-apps-template-beta/SKILL.md) | Deploy Workiva internal web apps on Google Apps Script + clasp; embed in Confluence; Okta org-only auth | SCs, Demo Engineering, anyone building small internal tools | "deploy an internal app", "clasp push", "embed in Confluence", "workiva-apps-template" | ✅ |
+| [`stop-slop`](./skills/stop-slop/SKILL.md) | Remove predictable AI writing patterns from prose | SCs, VM, anyone drafting customer or leadership copy | "remove AI patterns", "edit this draft", "stop slop" | ✅ |
+| [`tufte-charts`](./skills/tufte-charts/SKILL.md) | Tufte data-visualization methodology for charts and dense tables | SCs, VM, analytics storytelling | "Tufte-style", "maximize data-ink", "small multiples", "executive-grade chart" | ✅ |
+| [`grillme`](./skills/grillme/grillme.md) | Relentless interview to sharpen a plan or design (`/grilling`) | SCs planning demos, builds, or narratives | `/grilling`, "grill my plan", "pressure-test this design" | ✅ |
 
 ---
 
-## Agents
+## Usage and safety
 
-| Asset | Function | Target audience | Composes | Status |
-|-------|----------|-----------------|----------|--------|
-| [`office_hours_agent.yaml`](./agents/office_hours_agent.yaml) | Runs demo-build "office hours" + plan reviews to produce a vetted Demo Build Design Doc. | Solution Consulting | skills: `workiva-demo-build-office-hours` (+ 3 plan reviews) | poc |
+See **[SC_USAGE_GUIDE.md](./SC_USAGE_GUIDE.md)** for install steps, Claude permissions, Workiva/Google access model, and security risks.
 
----
-
-Agents must not embed credentials, must respect their declared data boundaries,
-cite sources, never fabricate Workiva policy, and require human review for
-customer-facing output. See [CONTRIBUTING.md](./CONTRIBUTING.md).
+Skills must not embed credentials, must respect data boundaries, cite sources, never fabricate Workiva policy, and require human review for customer-facing or legal/financial output. See [CONTRIBUTING.md](./CONTRIBUTING.md).

@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for adding to the **SVC Skill & Agent Library**. It's a shared library for
+Thanks for adding to the **SVC Skill Library**. It's a shared library for
 the Solution Consulting team, so keep it simple and practical. The bar is
 "useful, accurate, and safe for shared data."
 
@@ -9,7 +9,6 @@ the Solution Consulting team, so keep it simple and practical. The bar is
 | You are adding… | Path |
 |-----------------|------|
 | A reusable skill or workflow | `skills/<name>/SKILL.md` |
-| An agent identity that composes skills | `agents/<name>_agent.yaml` |
 
 - **One skill, one folder.** The folder name must match the `name:` in the
   skill's frontmatter (kebab-case).
@@ -30,13 +29,6 @@ the Solution Consulting team, so keep it simple and practical. The bar is
    ```
 3. Add a one-line entry to [ASSET_INDEX.md](./ASSET_INDEX.md).
 4. Open a PR.
-
-## Adding an agent
-
-Agent YAMLs name the skills a role composes, plus what data it may touch. Keep
-them honest: reference real `skills/...` paths, declare `data_boundaries`, and
-list any secrets by **name only** in `required_environment_variables` — never a
-value.
 
 ## Don't commit secrets
 
