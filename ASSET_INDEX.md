@@ -1,4 +1,4 @@
-# Catalog
+# SVC Skill Library — Catalog
 
 **Upload a skill:** [direct upload link →](https://github.com/MannyRodriguez-wk/workiva-SVC-skill-agent-library/upload/main/skills)
 

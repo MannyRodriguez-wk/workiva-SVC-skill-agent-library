@@ -1,6 +1,6 @@
-# Upload a skill here
+# SVC Skill Library — skills folder
 
-**[→ Click to upload](https://github.com/MannyRodriguez-wk/workiva-SVC-skill-agent-library/upload/main/skills)**
+**[→ Click to upload a skill](https://github.com/MannyRodriguez-wk/workiva-SVC-skill-agent-library/upload/main/skills)**
 
 Drag your folder. Commit. Done.
 

@@ -1,6 +1,6 @@
-# Upload an agent config here
+# SVC Skill Library — agents folder
 
-**[→ Click to upload](https://github.com/MannyRodriguez-wk/workiva-SVC-skill-agent-library/upload/main/agents)**
+**[→ Click to upload an agent config](https://github.com/MannyRodriguez-wk/workiva-SVC-skill-agent-library/upload/main/agents)**
 
 Drag a `.yaml` file. Commit. Done.
 

@@ -1,6 +1,6 @@
 # SVC Skill Library
 
-**Drop box for SC team Claude skills.** Upload here. Download from here.  
+**Drop box for SVC team Claude skills.** Upload here. Download from here.  
 Not an official Workiva product.
 
 ---
@@ -40,7 +40,7 @@ Optional safety notes: [SAFETY.md](./SAFETY.md)
 
 Or [download everything as a ZIP](https://github.com/MannyRodriguez-wk/workiva-SVC-skill-agent-library/archive/refs/heads/main.zip), unzip, open the **`skills`** folder.
 
-First time adding a skill to Claude on your machine? Ask in team Slack — 2-minute walkthrough, once.
+First time adding a skill to Claude on your machine? Ask in the SVC team Slack — 2-minute walkthrough, once.
 
 ---
 

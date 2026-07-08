@@ -1,6 +1,6 @@
-# Safety (read once)
+# SVC Skill Library — Safety (read once)
 
-Optional. Only matters if you're using skills on customer work, internal apps, or sensitive data.
+Optional. For SVC teammates using skills on customer work, internal apps, or sensitive data.
 
 ---
 
