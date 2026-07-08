@@ -1,8 +1,8 @@
 # Notice
 
 This repository is an internal **proof-of-concept** for the Workiva **Solution
-Consulting (SC)** team. It is a shared skill library the wider SC team can
-download from. It is not an official Workiva product or release.
+Consulting (SC)** team. SCs with repo access **upload skills directly on GitHub**
+— no pull requests required. It is not an official Workiva product or release.
 
 ## Licensing
 

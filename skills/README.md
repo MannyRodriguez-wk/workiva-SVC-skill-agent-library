@@ -1,20 +1,9 @@
-# Drop a skill folder here
+# Upload a skill here
 
-Add a folder named after your skill (kebab-case), with a `SKILL.md` inside.
+**[→ Click to upload](https://github.com/MannyRodriguez-wk/workiva-SVC-skill-agent-library/upload/main/skills)**
 
-**Copy-paste starter:**
+Drag your folder. Commit. Done.
 
-```markdown
----
-name: my-skill-name
-description: Use when someone asks to [do the thing]. Triggers on "[phrase]".
----
+Each subfolder = one skill. Needs a `SKILL.md` inside.
 
-# My Skill Name
-
-Instructions for the agent...
-```
-
-Optional: add `references/`, `assets/`, or `scripts/` subfolders if you need them.
-
-Open a PR — that's it. See [CONTRIBUTING.md](../CONTRIBUTING.md) for the full (short) guide.
+[Back to README](../README.md)
