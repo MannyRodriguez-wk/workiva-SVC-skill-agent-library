@@ -1,126 +1,59 @@
 # SVC Skill Library
 
-A shared, version-controlled **AI skill library proof-of-concept** for the
-Workiva **Solution Consulting (SC)** team — portable skills SCs can install in
-their own Claude app.
+Shared Claude skills for Workiva **SVC** — **Solution Consultants** and **Value Consultants**.
 
-> **Status: POC / early.** Internal experiment — not an official Workiva product.
-> Review behavior before customer-facing or system-of-record work.
+Upload here. Download from here. Not an official Workiva product.
 
 ---
 
-## Start here (SCs)
+## Upload a skill (do this on GitHub — no git, no PR)
 
-**[SC_USAGE_GUIDE.md](./SC_USAGE_GUIDE.md)** — how to install skills in Claude,
-permissions, navigation, per-skill usage, and **security risks**. Read this
-before copying skills into `~/.claude/skills/`.
+**[→ Upload directly to skills folder](https://github.com/MannyRodriguez-wk/workiva-SVC-skill-agent-library/upload/main/skills)**
 
----
+1. Click the link above (log in with GitHub if asked)
+2. Drag your skill **folder** into the page  
+   *(folder must contain a `SKILL.md` file — ask Claude to help you make one)*
+3. Scroll down → click **Commit changes**  
+   *(leave the default “Commit directly to the main branch” selected)*
 
-## What's in the library
+You're done. Every SVC consultant can download it immediately.
 
-| Skill | Purpose |
-|-------|---------|
-| [`internal-apps-template-beta`](./skills/internal-apps-template-beta/SKILL.md) | Deploy internal Apps Script tools + Confluence embed |
-| [`stop-slop`](./skills/stop-slop/SKILL.md) | De-AI prose editing |
-| [`tufte-charts`](./skills/tufte-charts/SKILL.md) | Tufte-style charts and tables |
-| [`grillme`](./skills/grillme/grillme.md) | Plan/design pressure test (`/grilling`) |
+**Upload an agent config instead?**  
+**[→ Upload directly to agents folder](https://github.com/MannyRodriguez-wk/workiva-SVC-skill-agent-library/upload/main/agents)** — drag a `.yaml` file.
 
-Full catalog: **[ASSET_INDEX.md](./ASSET_INDEX.md)**
+### First time? You need GitHub access once
 
----
+If the upload link says you don’t have permission, message **Manny Rodriguez** (or Bryan Kowal / Richie Warmkessel) — they’ll add you to the repo. After that, you upload yourself anytime.
 
-## Repository layout
+### Three rules
 
-```
-SVC-skill-library/
-├── SC_USAGE_GUIDE.md      # SC install + permissions + security (start here)
-├── README.md              # this file
-├── ASSET_INDEX.md         # skill catalog
-├── CONTRIBUTING.md        # how to add or change a skill
-├── NOTICE.md
-├── .gitignore
-└── skills/
-    ├── internal-apps-template-beta/
-    ├── stop-slop/
-    ├── tufte-charts/
-    └── grillme/
-        └── grillme.md
-```
+- No passwords or API keys  
+- No customer private info  
+- You checked anything customer-facing before it goes out the door  
 
-Each skill is a folder with its instruction file (`SKILL.md`, or `grillme.md`
-for the grill skill) and optional `references/`, `assets/`, or `scripts/`.
+Optional safety notes: [SAFETY.md](./SAFETY.md)
 
 ---
 
-## Expected skill structure
+## Download a skill
 
-```
-skills/<skill-name>/
-├── SKILL.md            # required: frontmatter + instructions
-├── references/         # optional
-├── assets/             # optional
-└── scripts/            # optional
-```
+**[Browse all skills →](https://github.com/MannyRodriguez-wk/workiva-SVC-skill-agent-library/tree/main/skills)**
 
-`SKILL.md` frontmatter (minimum):
+Or [download everything as a ZIP](https://github.com/MannyRodriguez-wk/workiva-SVC-skill-agent-library/archive/refs/heads/main.zip), unzip, open the **`skills`** folder.
 
-```markdown
----
-name: my-skill
-description: >
-  When to use this skill — triggers and outcomes in one or two sentences.
-metadata:                       # optional — put custom fields here
-  author: Your Name
-  version: 1.0.0
----
-
-# My Skill
-...
-```
-
-Stock validator fields: `name`, `description`, `metadata`, `allowed-tools`,
-`compatibility`, `license`.
+First time adding a skill to Claude on your machine? Ask in SVC Slack — 2-minute walkthrough, once.
 
 ---
 
-## Installing a skill
+## What’s in here now
 
-```bash
-git clone <repo-url> SVC-skill-library
-cp -r SVC-skill-library/skills/stop-slop ~/.claude/skills/
-```
-
-See [SC_USAGE_GUIDE.md](./SC_USAGE_GUIDE.md) for full install options and
-permission guidance.
-
----
-
-## Validation
-
-```bash
-agentskills validate skills/stop-slop
-
-for d in skills/*/; do echo "== $d =="; agentskills validate "$d"; done
-```
-
-| Skill | Expected |
-|-------|----------|
-| `internal-apps-template-beta` | ✅ |
-| `stop-slop` | ✅ |
-| `tufte-charts` | ✅ |
-| `grillme` | ✅ |
+| Folder | Good for | What it does |
+|--------|----------|----------------|
+| `stop-slop` | Solution & Value | Cleans up AI-sounding writing |
+| `tufte-charts` | Value (and anyone presenting data) | Makes clean, exec-style charts |
+| `internal-apps-template-beta` | Solution | Host small internal tools |
+| `grillme` | Solution & Value | Pressure-tests a plan (`/grilling`) |
 
 ---
 
-## Contributing
-
-See [CONTRIBUTING.md](./CONTRIBUTING.md). Branch, add under `skills/`, validate,
-update `ASSET_INDEX.md`, open a PR. No secrets, ever.
-
----
-
-## License / ownership
-
-Internal Workiva proof-of-concept. See [NOTICE.md](./NOTICE.md). Do not
-redistribute outside Workiva without confirming terms with repository owners.
+Questions → [NOTICE.md](./NOTICE.md)

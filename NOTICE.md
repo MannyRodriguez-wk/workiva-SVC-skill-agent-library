@@ -1,8 +1,11 @@
-# Notice
+# Notice — SVC Skill Library
 
-This repository is an internal **proof-of-concept** for the Workiva **Solution
-Consulting (SC)** team. It is a shared skill library the wider SC team can
-download from. It is not an official Workiva product or release.
+This repository is an internal **proof-of-concept** for Workiva **SVC** — the
+combined **Solution Consulting** and **Value Consulting** organization.
+
+Solution Consultants and Value Consultants with repo access **upload skills
+directly on GitHub** — no pull requests required. It is not an official
+Workiva product or release.
 
 ## Licensing
 
@@ -20,9 +23,9 @@ replaced or supplemented with the approved language (and a `LICENSE` file added)
 
 ## Ownership / contact
 
-Maintained by the Workiva Solution Consulting team, seeded by the Demo Consulting
-group (Manny Rodriguez, Bryan Kowal, Richie Warmkessel). Direct questions about
-reuse, contribution, or licensing to the repository owners.
+Maintained for the Workiva **SVC** org — Solution Consulting and Value
+Consulting (Manny Rodriguez, Bryan Kowal, Richie Warmkessel). Direct questions
+about reuse, contribution, or licensing to the repository owners.
 
 ## Third-party content
 
