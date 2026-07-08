@@ -1,5 +1,7 @@
 # SVC Skill Library — Catalog
 
+Skills for **Solution Consultants** and **Value Consultants**.
+
 **Upload a skill:** [direct upload link →](https://github.com/MannyRodriguez-wk/workiva-SVC-skill-agent-library/upload/main/skills)
 
 **Browse what's here:**

@@ -1,7 +1,8 @@
 # SVC Skill Library
 
-**Drop box for SVC team Claude skills.** Upload here. Download from here.  
-Not an official Workiva product.
+Shared Claude skills for Workiva **SVC** — **Solution Consultants** and **Value Consultants**.
+
+Upload here. Download from here. Not an official Workiva product.
 
 ---
 
@@ -15,7 +16,7 @@ Not an official Workiva product.
 3. Scroll down → click **Commit changes**  
    *(leave the default “Commit directly to the main branch” selected)*
 
-You're done. Everyone can download it immediately.
+You're done. Every SVC consultant can download it immediately.
 
 **Upload an agent config instead?**  
 **[→ Upload directly to agents folder](https://github.com/MannyRodriguez-wk/workiva-SVC-skill-agent-library/upload/main/agents)** — drag a `.yaml` file.
@@ -40,18 +41,18 @@ Optional safety notes: [SAFETY.md](./SAFETY.md)
 
 Or [download everything as a ZIP](https://github.com/MannyRodriguez-wk/workiva-SVC-skill-agent-library/archive/refs/heads/main.zip), unzip, open the **`skills`** folder.
 
-First time adding a skill to Claude on your machine? Ask in the SVC team Slack — 2-minute walkthrough, once.
+First time adding a skill to Claude on your machine? Ask in SVC Slack — 2-minute walkthrough, once.
 
 ---
 
 ## What’s in here now
 
-| Folder | What it does |
-|--------|----------------|
-| `stop-slop` | Cleans up AI-sounding writing |
-| `tufte-charts` | Makes clean, exec-style charts |
-| `internal-apps-template-beta` | Host small internal tools |
-| `grillme` | Pressure-tests a plan (`/grilling`) |
+| Folder | Good for | What it does |
+|--------|----------|----------------|
+| `stop-slop` | Solution & Value | Cleans up AI-sounding writing |
+| `tufte-charts` | Value (and anyone presenting data) | Makes clean, exec-style charts |
+| `internal-apps-template-beta` | Solution | Host small internal tools |
+| `grillme` | Solution & Value | Pressure-tests a plan (`/grilling`) |
 
 ---
 

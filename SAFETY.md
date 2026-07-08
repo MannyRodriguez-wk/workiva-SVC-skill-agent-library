@@ -1,6 +1,7 @@
 # SVC Skill Library — Safety (read once)
 
-Optional. For SVC teammates using skills on customer work, internal apps, or sensitive data.
+Optional. For Solution Consultants and Value Consultants using skills on
+customer work, internal apps, or sensitive data.
 
 ---
 
