@@ -12,6 +12,10 @@ description: >
   "Apps Script web app", "I built a tool with Claude/ChatGPT and need to host it", or
   any request to take an AI-generated HTML prototype and turn it into a secure internal
   tool. Proactively invoke this skill before writing any code or giving deployment steps.
+metadata:
+  author: Manny Rodriguez-Lapido
+  version: '1.0-beta'
+  license: MIT
 ---
 
 # Internal Apps Template — Deploy Guide
